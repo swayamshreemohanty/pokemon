@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_cards_model.dart';
 import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository.dart';
+import 'package:pokemon/util/dio_client.dart';
 
 /// A class representing the repository for fetching Pokemon cards.ˆ
 class PokemonCardsRepositoryImpl implements PokemonCardsRepository {
@@ -11,7 +11,8 @@ class PokemonCardsRepositoryImpl implements PokemonCardsRepository {
     try {
       log("*****FETCHING CARDS***** with PAGE: $page*****");
 
-      final response = await Dio()
+      final response = await DioClient()
+          .instance
           .get('https://api.pokemontcg.io/v2/cards?page=$page&pageSize=10')
           .then((response) => PokemonCardsDataModel.fromMap(response.data));
 
