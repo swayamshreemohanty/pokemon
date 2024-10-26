@@ -22,51 +22,55 @@ class PokemonCardsListScreen extends StatelessWidget {
           PokemonCardsControllerCubit(PokemonCardsRepositoryImpl())
             //Initial call to get the Pokemon cards.
             ..getPokemonCards(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Pokemon Cards'),
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SearchTextField(
-                  hint: "Search Pokemon...",
-                  onQuery: (query) {
-                    // Call the getPokemonCards method with the query.
-                    context
-                        .read<PokemonCardsControllerCubit>()
-                        .searchPokemonCards(query);
-                  }),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Pokemon Cards'),
             ),
-            Expanded(
-              child: BlocBuilder<PokemonCardsControllerCubit,
-                  PokemonCardsControllerState>(
-                builder: (context, pokemonCardsControllerState) {
-                  if (pokemonCardsControllerState.showErrorOnScreen &&
-                      pokemonCardsControllerState.errorMesssage != null) {
-                    return Center(
-                      child: Text(pokemonCardsControllerState.errorMesssage!),
-                    );
-                  } else if (pokemonCardsControllerState.isLoading) {
-                    return const GridShimmerWidget();
-                  } else {
-                    /// Get the Pokemon cards data model from the state.
-                    final pokemonCardsDataModel =
-                        pokemonCardsControllerState.pokemonCardsDataModel;
-
-                    /// Build the PokemonCardsGridView widget.
-                    return PokemonCardsGridView(
-                      pokemonCardModel: pokemonCardsDataModel,
-                      disableLoadMore:
-                          pokemonCardsControllerState.disableLoadMore,
-                    ).build(context);
-                  }
-                },
-              ),
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SearchTextField(
+                      hint: "Search Pokemon...",
+                      onQuery: (query) {
+                        // Call the getPokemonCards method with the query.
+                        context
+                            .read<PokemonCardsControllerCubit>()
+                            .searchPokemonCards(query);
+                      }),
+                ),
+                Expanded(
+                  child: BlocBuilder<PokemonCardsControllerCubit,
+                      PokemonCardsControllerState>(
+                    builder: (context, pokemonCardsControllerState) {
+                      if (pokemonCardsControllerState.showErrorOnScreen &&
+                          pokemonCardsControllerState.errorMesssage != null) {
+                        return Center(
+                          child: Text(pokemonCardsControllerState.errorMesssage!),
+                        );
+                      } else if (pokemonCardsControllerState.isLoading) {
+                        return const GridShimmerWidget();
+                      } else {
+                        /// Get the Pokemon cards data model from the state.
+                        final pokemonCardsDataModel =
+                            pokemonCardsControllerState.pokemonCardsDataModel;
+          
+                        /// Build the PokemonCardsGridView widget.
+                        return PokemonCardsGridView(
+                          pokemonCardModel: pokemonCardsDataModel,
+                          disableLoadMore:
+                              pokemonCardsControllerState.disableLoadMore,
+                        ).build(context);
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        }
       ),
     );
   }

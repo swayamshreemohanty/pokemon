@@ -62,27 +62,22 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
   /// The state cards list will be used to filter the cards based on the query.
 
   void searchPokemonCards(String query) {
-    final filteredCards = _pokemonCardsDataModel.cards
-        .where((card) => card.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final trimmedQuery = query.trim().toLowerCase();
+    final isQueryNotEmpty = trimmedQuery.isNotEmpty;
+
+    final filteredCards = isQueryNotEmpty
+        ? _pokemonCardsDataModel.cards
+            .where((card) => card.name.toLowerCase().contains(trimmedQuery))
+            .toList()
+        : _pokemonCardsDataModel.cards;
 
     emit(
       state.copyWith(
-        disableLoadMore:
-            // If the filtered cards list is not empty, then the load more functionality should be disabled.
-            // to avoid loading more data while searching. Because the search results are handled locally.
-            filteredCards.isNotEmpty ? true : false,
-        pokemonCardsDataModel: filteredCards.isNotEmpty
-            ?
-            // If the filtered cards list is not empty, then search operation is in use.
-            PokemonCardsDataModel(
-                pagination: _pokemonCardsDataModel.pagination,
-                cards: filteredCards,
-              )
-            :
-            // If the filtered cards list is empty, then search operation is not in use.
-            // in this case, the original Pokemon cards data model is used.
-            _pokemonCardsDataModel,
+        disableLoadMore: isQueryNotEmpty,
+        pokemonCardsDataModel: PokemonCardsDataModel(
+          pagination: _pokemonCardsDataModel.pagination,
+          cards: filteredCards,
+        ),
       ),
     );
   }
