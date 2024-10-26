@@ -43,8 +43,8 @@ class PaginationModel {
     );
   }
 
-  /// Allow pagination
-  bool get allowPagination => currentPage != -1 && totalPages != -1;
+  /// is Pagination disabled
+  bool get isDisabled => currentPage == -1 && totalPages == -1;
 
   /// This method is used to disable pagination.
   /// Mostly used during search operations.

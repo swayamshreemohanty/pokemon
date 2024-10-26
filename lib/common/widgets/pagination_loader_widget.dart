@@ -4,6 +4,9 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 /// The widget to handle pagination loading.
 class PaginationLoaderWidget extends StatelessWidget {
+  /// The flag to check if pagination is disabled.
+  final bool isPaginationDisabled;
+
   /// The flag to check if there is more data to load.
   final bool hasMoreData;
 
@@ -13,6 +16,7 @@ class PaginationLoaderWidget extends StatelessWidget {
   /// Constructs the [PaginationLoaderWidget] widget.
   const PaginationLoaderWidget({
     super.key,
+    required this.isPaginationDisabled,
     required this.hasMoreData,
     required this.loadMoreData,
   });
@@ -20,7 +24,9 @@ class PaginationLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Handle pagination
-    if (hasMoreData) {
+    if (isPaginationDisabled) {
+      return const SizedBox.shrink();
+    } else if (hasMoreData) {
       return Center(
         child: VisibilityDetector(
           key: key!,

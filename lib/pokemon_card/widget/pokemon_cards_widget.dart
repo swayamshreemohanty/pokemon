@@ -46,6 +46,7 @@ class PokemonCardsGridView implements PokemonCardsWidget {
           } else {
             return PaginationLoaderWidget(
               key: const Key('PokemonCardsGridViewLoader'),
+              isPaginationDisabled: pokemonCardModel.pagination.isDisabled,
               hasMoreData: pokemonCardModel.pagination.hasNextPage,
               loadMoreData: () {
                 //Load more data

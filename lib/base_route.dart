@@ -17,12 +17,17 @@ class BaseRoute extends StatelessWidget {
         title: const Text('Pokemon Cards App'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              GoRouter.of(context).pushNamed(PokemonCardsListScreen.routeName);
-            },
-            child: const Text('Pokemon Cards List'),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                GoRouter.of(context)
+                    .pushNamed(PokemonCardsListScreen.routeName);
+              },
+              child: const Text('Pokemon Cards List'),
+            ),
           ),
         ],
       ),
