@@ -5,7 +5,7 @@ import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository.dart';
 /// A class representing the repository for fetching Pokemon cards.ˆ
 class PokemonCardsRepositoryImpl implements PokemonCardsRepository {
   @override
-  Future<PokemonCardsDataModel> getPokemonCards({int page = 1}) async {
+  Future<PokemonCardsDataModel> getPokemonCards(int page) async {
     try {
       return await Dio()
           .get('https://api.pokemontcg.io/v2/cards?page=$page&pageSize=10')

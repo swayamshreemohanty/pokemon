@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_cards_model.dart';
 import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository.dart';
@@ -31,8 +32,9 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
         }
 
         // Fetch the Pokemon cards data.
-        final updatedData = await _pokemonCardsRepository.getPokemonCards(
-          page: state.pokemonCardsDataModel.pagination.nextPage,
+        final updatedData = await compute(
+          _pokemonCardsRepository.getPokemonCards,
+          state.pokemonCardsDataModel.pagination.nextPage,
         );
 
         // Update the Pokemon cards data model with the new data.
