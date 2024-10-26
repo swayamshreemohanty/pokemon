@@ -20,7 +20,7 @@ class PaginationModel {
   factory PaginationModel.fromMap(Map<String, dynamic> map) {
     return PaginationModel(
       currentPage: map['page'],
-      totalCount: 50,
+      totalCount: map['totalCount'],
       count: map['count'],
     );
   }
