@@ -72,10 +72,10 @@ class PokemonCard {
   final PokemonImage images;
 
   /// The TCGPlayer details of the Pokemon card.
-  final TcgPlayer tcgplayer;
+  final TcgPlayer? tcgplayer;
 
   /// The CardMarket details of the Pokemon card.
-  final CardMarket cardmarket;
+  final CardMarket? cardmarket;
 
   /// Creates a new instance of [PokemonCard].
   ///
@@ -162,8 +162,12 @@ class PokemonCard {
         nationalPokedexNumbers: List<int>.from(map['nationalPokedexNumbers']),
         legalities: Legalities.fromMap(map['legalities']),
         images: PokemonImage.fromMap(map['images']),
-        tcgplayer: TcgPlayer.fromMap(map['tcgplayer']),
-        cardmarket: CardMarket.fromMap(map['cardmarket']),
+        tcgplayer: map['tcgplayer'] == null
+            ? null
+            : TcgPlayer.fromMap(map['tcgplayer']),
+        cardmarket: map['cardmarket'] == null
+            ? null
+            : CardMarket.fromMap(map['cardmarket']),
       );
     } catch (e) {
       throw Exception('Failed to create PokemonCard: $e');

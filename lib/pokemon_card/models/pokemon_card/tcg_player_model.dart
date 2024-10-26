@@ -80,7 +80,7 @@ class TCGPlayerPriceModel {
   final double high;
 
   /// The market price.
-  final double market;
+  final double? market;
 
   /// The direct low price, if available.
   final double? directLow;
@@ -91,7 +91,7 @@ class TCGPlayerPriceModel {
     required this.mid,
     required this.high,
     required this.market,
-    this.directLow,
+    required this.directLow,
   });
 
   /// Creates a new instance of [TCGPlayerPriceModel] from a map.
