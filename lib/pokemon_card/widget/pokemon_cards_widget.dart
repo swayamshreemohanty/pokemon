@@ -30,11 +30,12 @@ class PokemonCardsGridView implements PokemonCardsWidget {
       );
     } else {
       return GridView.builder(
+        padding: const EdgeInsets.all(8),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 4,
-          mainAxisSpacing: 4,
-          childAspectRatio: 1,
+          crossAxisSpacing: 6,
+          mainAxisSpacing: 6,
+          childAspectRatio: 0.8,
         ),
 
         /// Here +1 is added to the itemCount to show the last item as loader to load more data.

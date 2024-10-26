@@ -15,9 +15,6 @@ class PokemonCardsRepositoryImpl implements PokemonCardsRepository {
           .get('https://api.pokemontcg.io/v2/cards?page=$page&pageSize=10')
           .then((response) => PokemonCardsDataModel.fromMap(response.data));
 
-      log("*****RESPONSE*****");
-      print(response.cards.length);
-
       return response;
     } catch (e) {
       throw Exception('Failed to fetch Pokemon cards: $e');

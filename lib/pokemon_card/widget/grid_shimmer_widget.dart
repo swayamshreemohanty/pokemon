@@ -10,11 +10,12 @@ class GridShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Loading shimmer effect
     return GridView.builder(
+      padding: const EdgeInsets.all(8),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 4,
-        mainAxisSpacing: 4,
-        childAspectRatio: 1,
+        crossAxisSpacing: 6,
+        mainAxisSpacing: 6,
+        childAspectRatio: 0.8,
       ),
       itemCount: 30,
       itemBuilder: (context, index) {

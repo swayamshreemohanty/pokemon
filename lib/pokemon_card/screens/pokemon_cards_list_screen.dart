@@ -22,12 +22,17 @@ class PokemonCardsListScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SearchTextField(onQuery: (query) {
-            // Call the getPokemonCards method with the query.
-            context
-                .read<PokemonCardsControllerCubit>()
-                .searchPokemonCards(query);
-          }),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SearchTextField(
+                hint: "Search Pokemon...",
+                onQuery: (query) {
+                  // Call the getPokemonCards method with the query.
+                  context
+                      .read<PokemonCardsControllerCubit>()
+                      .searchPokemonCards(query);
+                }),
+          ),
           Expanded(
             child: BlocProvider(
               create: (context) =>
