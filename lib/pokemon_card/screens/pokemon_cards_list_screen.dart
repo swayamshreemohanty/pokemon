@@ -56,8 +56,11 @@ class PokemonCardsListScreen extends StatelessWidget {
                         pokemonCardsControllerState.pokemonCardsDataModel;
 
                     /// Build the PokemonCardsGridView widget.
-                    return PokemonCardsGridView(pokemonCardsDataModel)
-                        .build(context);
+                    return PokemonCardsGridView(
+                      pokemonCardModel: pokemonCardsDataModel,
+                      disableLoadMore:
+                          pokemonCardsControllerState.disableLoadMore,
+                    ).build(context);
                   }
                 },
               ),

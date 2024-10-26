@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_cards_model.dart';
 import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository.dart';
-import 'package:pokemon/util/pagination_model.dart';
 
 part 'pokemon_cards_controller_state.dart';
 
@@ -27,7 +24,7 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
   Future<void> getPokemonCards() async {
     try {
       // Check if there is a next page.
-      if (state.pokemonCardsDataModel.pagination.hasNextPage) {
+      if (_pokemonCardsDataModel.hasMoreData) {
         // If the list of Pokemon cards is empty, then set the loading state to true.
         if (state.pokemonCardsDataModel.cards.isEmpty) {
           emit(state.copyWith(isLoading: true));
@@ -45,15 +42,10 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
           cards: updatedData.cards,
         );
 
-        log("------> DATA length: ${_pokemonCardsDataModel.cards.length}");
-
         // emit the new state with the updated Pokemon cards data model.
         emit(state.copyWith(pokemonCardsDataModel: _pokemonCardsDataModel));
       }
     } catch (e) {
-
-      log("------> getPokemonCards ERROR: $e");
-
       emit(
         state.copyWith(
           /// If the list of Pokemon cards is empty, then set the error state to true in the exception block.
@@ -76,11 +68,15 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
 
     emit(
       state.copyWith(
+        disableLoadMore:
+            // If the filtered cards list is not empty, then the load more functionality should be disabled.
+            // to avoid loading more data while searching. Because the search results are handled locally.
+            filteredCards.isNotEmpty ? true : false,
         pokemonCardsDataModel: filteredCards.isNotEmpty
             ?
             // If the filtered cards list is not empty, then search operation is in use.
             PokemonCardsDataModel(
-                pagination: PaginationModel.disablePagination(),
+                pagination: _pokemonCardsDataModel.pagination,
                 cards: filteredCards,
               )
             :

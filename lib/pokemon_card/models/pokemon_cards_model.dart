@@ -21,6 +21,10 @@ class PokemonCardsDataModel {
     required this.cards,
   });
 
+  /// Indicates if the collection of Pokemon cards has more data.
+  bool get hasMoreData => ((cards.isEmpty && pagination.totalCount == 0) ||
+      (cards.length < pagination.totalCount));
+
   /// Creates a new instance of [PokemonCardsModel] from a map.
   ///
   /// The [map] parameter is a [Map] containing the data to create the model.

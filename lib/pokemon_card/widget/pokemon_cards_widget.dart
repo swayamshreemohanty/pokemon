@@ -16,9 +16,15 @@ class PokemonCardsGridView implements PokemonCardsWidget {
   /// The pokemon cards data model.
   final PokemonCardsDataModel pokemonCardModel;
 
+  /// Indicates whether to allow loading more data.
+  final bool disableLoadMore;
+
   /// Constructs the [PokemonCardsGridView] widget.
   /// The [pokemonCards] parameter is required and provides the list of Pokemon cards.
-  const PokemonCardsGridView(this.pokemonCardModel);
+  const PokemonCardsGridView({
+    required this.pokemonCardModel,
+    required this.disableLoadMore,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +53,8 @@ class PokemonCardsGridView implements PokemonCardsWidget {
           } else {
             return PaginationLoaderWidget(
               key: const Key('PokemonCardsGridViewLoader'),
-              isPaginationDisabled: pokemonCardModel.pagination.isDisabled,
-              hasMoreData: pokemonCardModel.pagination.hasNextPage,
+              disableLoadMore: disableLoadMore,
+              hasMoreData: pokemonCardModel.hasMoreData,
               loadMoreData: () {
                 //Load more data
                 context.read<PokemonCardsControllerCubit>().getPokemonCards();
