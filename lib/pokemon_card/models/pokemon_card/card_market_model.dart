@@ -107,22 +107,26 @@ class CardMarketPrice {
   /// 'lowPriceExPlus', 'avg1', 'avg7', 'avg30', 'reverseHoloAvg1', 'reverseHoloAvg7',
   /// and 'reverseHoloAvg30'.
   factory CardMarketPrice.fromMap(Map<String, dynamic> map) {
-    return CardMarketPrice(
-      averageSellPrice: map['averageSellPrice'],
-      lowPrice: map['lowPrice'],
-      trendPrice: map['trendPrice'],
-      germanProLow: map['germanProLow'],
-      suggestedPrice: map['suggestedPrice'],
-      reverseHoloSell: map['reverseHoloSell'],
-      reverseHoloLow: map['reverseHoloLow'],
-      reverseHoloTrend: map['reverseHoloTrend'],
-      lowPriceExPlus: map['lowPriceExPlus'],
-      avg1: map['avg1'],
-      avg7: map['avg7'],
-      avg30: map['avg30'],
-      reverseHoloAvg1: map['reverseHoloAvg1'],
-      reverseHoloAvg7: map['reverseHoloAvg7'],
-      reverseHoloAvg30: map['reverseHoloAvg30'],
-    );
+    try {
+      return CardMarketPrice(
+        averageSellPrice: map['averageSellPrice'],
+        lowPrice: map['lowPrice'],
+        trendPrice: map['trendPrice'],
+        germanProLow: map['germanProLow'],
+        suggestedPrice: map['suggestedPrice'],
+        reverseHoloSell: map['reverseHoloSell'],
+        reverseHoloLow: map['reverseHoloLow'],
+        reverseHoloTrend: map['reverseHoloTrend'],
+        lowPriceExPlus: map['lowPriceExPlus'],
+        avg1: map['avg1'],
+        avg7: map['avg7'],
+        avg30: map['avg30'],
+        reverseHoloAvg1: map['reverseHoloAvg1'],
+        reverseHoloAvg7: map['reverseHoloAvg7'],
+        reverseHoloAvg30: map['reverseHoloAvg30'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create CardMarketPrice: $e');
+    }
   }
 }

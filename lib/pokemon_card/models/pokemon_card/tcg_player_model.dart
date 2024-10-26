@@ -50,17 +50,21 @@ class TCGPlayerPriceDetails {
   ///
   /// [map] is a map containing the price details data.
   factory TCGPlayerPriceDetails.fromMap(Map<String, dynamic> map) {
-    return TCGPlayerPriceDetails(
-      normal: map['normal'] == null
-          ? null
-          : TCGPlayerPriceModel.fromMap(map['normal']),
-      holofoil: map['holofoil'] == null
-          ? null
-          : TCGPlayerPriceModel.fromMap(map['holofoil']),
-      reverseHolofoil: map['reverseHolofoil'] == null
-          ? null
-          : TCGPlayerPriceModel.fromMap(map['reverseHolofoil']),
-    );
+    try {
+      return TCGPlayerPriceDetails(
+        normal: map['normal'] == null
+            ? null
+            : TCGPlayerPriceModel.fromMap(map['normal']),
+        holofoil: map['holofoil'] == null
+            ? null
+            : TCGPlayerPriceModel.fromMap(map['holofoil']),
+        reverseHolofoil: map['reverseHolofoil'] == null
+            ? null
+            : TCGPlayerPriceModel.fromMap(map['reverseHolofoil']),
+      );
+    } catch (e) {
+      throw Exception('Failed to create TCGPlayerPriceDetails: $e');
+    }
   }
 }
 
@@ -94,12 +98,16 @@ class TCGPlayerPriceModel {
   ///
   /// [map] is a map containing the price model data.
   factory TCGPlayerPriceModel.fromMap(Map<String, dynamic> map) {
-    return TCGPlayerPriceModel(
-      low: map['low'],
-      mid: map['mid'],
-      high: map['high'],
-      market: map['market'],
-      directLow: map['directLow'],
-    );
+    try {
+      return TCGPlayerPriceModel(
+        low: map['low'],
+        mid: map['mid'],
+        high: map['high'],
+        market: map['market'],
+        directLow: map['directLow'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create TCGPlayerPriceModel: $e');
+    }
   }
 }

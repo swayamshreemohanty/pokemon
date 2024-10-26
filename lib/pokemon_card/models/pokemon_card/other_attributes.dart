@@ -16,11 +16,15 @@ class Ability {
   ///
   /// [map] is a map containing the ability data.
   factory Ability.fromMap(Map<String, dynamic> map) {
-    return Ability(
-      name: map['name'],
-      text: map['text'],
-      type: map['type'],
-    );
+    try {
+      return Ability(
+        name: map['name'],
+        text: map['text'],
+        type: map['type'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create Ability: $e');
+    }
   }
 }
 
@@ -54,13 +58,17 @@ class Attack {
   ///
   /// [map] is a map containing the attack data.
   factory Attack.fromMap(Map<String, dynamic> map) {
-    return Attack(
-      name: map['name'],
-      cost: List<String>.from(map['cost']),
-      convertedEnergyCost: map['convertedEnergyCost'],
-      damage: map['damage'],
-      text: map['text'],
-    );
+    try {
+      return Attack(
+        name: map['name'],
+        cost: List<String>.from(map['cost']),
+        convertedEnergyCost: map['convertedEnergyCost'],
+        damage: map['damage'],
+        text: map['text'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create Attack: $e');
+    }
   }
 }
 
@@ -82,10 +90,14 @@ class Weakness {
   ///
   /// [map] is a map containing the weakness data.
   factory Weakness.fromMap(Map<String, dynamic> map) {
-    return Weakness(
-      type: map['type'],
-      value: map['value'],
-    );
+    try {
+      return Weakness(
+        type: map['type'],
+        value: map['value'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create Weakness: $e');
+    }
   }
 }
 
@@ -107,10 +119,14 @@ class Resistance {
   ///
   /// [map] is a map containing the resistance data.
   factory Resistance.fromMap(Map<String, dynamic> map) {
-    return Resistance(
-      type: map['type'],
-      value: map['value'],
-    );
+    try {
+      return Resistance(
+        type: map['type'],
+        value: map['value'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create Resistance: $e');
+    }
   }
 }
 
@@ -135,9 +151,13 @@ class Legalities {
   ///
   /// [map] is a map containing the legalities data.
   factory Legalities.fromMap(Map<String, dynamic> map) {
-    return Legalities(
-      unlimited: map['unlimited'],
-      expanded: map['expanded'],
-    );
+    try {
+      return Legalities(
+        unlimited: map['unlimited'],
+        expanded: map['expanded'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create Legalities: $e');
+    }
   }
 }

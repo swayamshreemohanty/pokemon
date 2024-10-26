@@ -57,18 +57,22 @@ class SetDetails {
   /// The [map] parameter must contain keys corresponding to the fields of [SetDetails].
 
   factory SetDetails.fromMap(Map<String, dynamic> map) {
-    return SetDetails(
-      id: map['id'],
-      name: map['name'],
-      series: map['series'],
-      printedTotal: map['printedTotal'],
-      total: map['total'],
-      legalities: Legalities.fromMap(map['legalities']),
-      ptcgoCode: map['ptcgoCode'],
-      releaseDate: map['releaseDate'],
-      updatedAt: map['updatedAt'],
-      images: SetDetailsImage.fromMap(map['images']),
-    );
+    try {
+      return SetDetails(
+        id: map['id'],
+        name: map['name'],
+        series: map['series'],
+        printedTotal: map['printedTotal'],
+        total: map['total'],
+        legalities: Legalities.fromMap(map['legalities']),
+        ptcgoCode: map['ptcgoCode'],
+        releaseDate: map['releaseDate'],
+        updatedAt: map['updatedAt'],
+        images: SetDetailsImage.fromMap(map['images']),
+      );
+    } catch (e) {
+      throw Exception('Failed to create SetDetails: $e');
+    }
   }
 }
 
@@ -93,9 +97,13 @@ class SetDetailsImage {
   ///
   /// [map] is a map containing the images data.
   factory SetDetailsImage.fromMap(Map<String, dynamic> map) {
-    return SetDetailsImage(
-      symbol: map['symbol'],
-      logo: map['logo'],
-    );
+    try {
+      return SetDetailsImage(
+        symbol: map['symbol'],
+        logo: map['logo'],
+      );
+    } catch (e) {
+      throw Exception('Failed to create SetDetailsImage: $e');
+    }
   }
 }

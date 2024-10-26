@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:pokemon/pokemon_card/models/pokemon_card/card_market_model.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_card/other_attributes.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_card/set_details_models.dart';
@@ -45,7 +47,7 @@ class PokemonCard {
   final List<String> retreatCost;
 
   /// The converted retreat cost of the Pokemon card.
-  final int convertedRetreatCost;
+  final int? convertedRetreatCost;
 
   /// The set details of the Pokemon card.
   final SetDetails setDetails;
@@ -57,7 +59,7 @@ class PokemonCard {
   final String artist;
 
   /// The rarity of the Pokemon card.
-  final String rarity;
+  final String? rarity;
 
   /// The flavor text of the Pokemon card, if available.
   final String? flavorText;
@@ -112,48 +114,63 @@ class PokemonCard {
   /// The [map] parameter must contain all the necessary keys and values
   /// to properly initialize a [PokemonCard] instance.
   factory PokemonCard.fromMap(Map<String, dynamic> map) {
-    return PokemonCard(
-      id: map['id'],
-      name: map['name'],
-      supertype: map['supertype'],
-      subtypes: List<String>.from(map['subtypes']),
-      level: map['level'],
-      hp: map['hp'],
-      types: List<String>.from(map['types']),
-      evolvesFrom: map['evolvesFrom'],
-      abilities: List<Ability>.from(
-        map['abilities'].map(
-          (item) => Ability.fromMap(item),
-        ),
-      ),
-      attacks: List<Attack>.from(
-        map['attacks'].map(
-          (item) => Attack.fromMap(item),
-        ),
-      ),
-      weaknesses: List<Weakness>.from(
-        map['weaknesses'].map(
-          (item) => Weakness.fromMap(item),
-        ),
-      ),
-      resistances: List<Resistance>.from(
-        map['resistances'].map(
-          (item) => Resistance.fromMap(item),
-        ),
-      ),
-      retreatCost: List<String>.from(map['retreatCost']),
-      convertedRetreatCost: map['convertedRetreatCost'],
-      setDetails: SetDetails.fromMap(map['set']),
-      number: map['number'],
-      artist: map['artist'],
-      rarity: map['rarity'],
-      flavorText: map['flavorText'],
-      nationalPokedexNumbers: List<int>.from(map['nationalPokedexNumbers']),
-      legalities: Legalities.fromMap(map['legalities']),
-      images: PokemonImage.fromMap(map['images']),
-      tcgplayer: TcgPlayer.fromMap(map['tcgplayer']),
-      cardmarket: CardMarket.fromMap(map['cardmarket']),
-    );
+    try {
+      return PokemonCard(
+        id: map['id'],
+        name: map['name'],
+        supertype: map['supertype'],
+        subtypes: List<String>.from(map['subtypes']),
+        level: map['level'],
+        hp: map['hp'],
+        types: List<String>.from(map['types']),
+        evolvesFrom: map['evolvesFrom'],
+        abilities: map['abilities'] != null
+            ? List<Ability>.from(
+                map['abilities'].map(
+                  (item) => Ability.fromMap(item),
+                ),
+              )
+            : [],
+        attacks: map['attacks'] != null
+            ? List<Attack>.from(
+                map['attacks'].map(
+                  (item) => Attack.fromMap(item),
+                ),
+              )
+            : [],
+        weaknesses: map['weaknesses'] != null
+            ? List<Weakness>.from(
+                map['weaknesses'].map(
+                  (item) => Weakness.fromMap(item),
+                ),
+              )
+            : [],
+        resistances: map['resistances'] != null
+            ? List<Resistance>.from(
+                map['resistances'].map(
+                  (item) => Resistance.fromMap(item),
+                ),
+              )
+            : [],
+        retreatCost: map['retreatCost'] != null
+            ? List<String>.from(map['retreatCost'])
+            : [],
+        convertedRetreatCost: map['convertedRetreatCost'],
+        setDetails: SetDetails.fromMap(map['set']),
+        number: map['number'],
+        artist: map['artist'],
+        rarity: map['rarity'],
+        flavorText: map['flavorText'],
+        nationalPokedexNumbers: List<int>.from(map['nationalPokedexNumbers']),
+        legalities: Legalities.fromMap(map['legalities']),
+        images: PokemonImage.fromMap(map['images']),
+        tcgplayer: TcgPlayer.fromMap(map['tcgplayer']),
+        cardmarket: CardMarket.fromMap(map['cardmarket']),
+      );
+    } catch (e) {
+      log('Failed to create PokemonCard: $e');
+      throw Exception('Failed to create PokemonCard: $e');
+    }
   }
 }
 

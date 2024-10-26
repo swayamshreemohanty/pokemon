@@ -9,6 +9,8 @@ class PokemonCardsRepositoryImpl implements PokemonCardsRepository {
   @override
   Future<PokemonCardsDataModel> getPokemonCards(int page) async {
     try {
+      log("*****FETCHING CARDS with PAGE: $page*****");
+
       final response = await Dio()
           .get('https://api.pokemontcg.io/v2/cards?page=$page&pageSize=10')
           .then((response) => PokemonCardsDataModel.fromMap(response.data));
