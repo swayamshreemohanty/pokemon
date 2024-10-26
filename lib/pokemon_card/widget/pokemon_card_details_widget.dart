@@ -20,19 +20,16 @@ class PokemonCardDetailsWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         children: [
           //image
-          Hero(
-            tag: pokemonCard.id,
-            child: CachedNetworkImage(
-              imageUrl: pokemonCard.images.large,
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                child: CircularProgressIndicator(
-                  value: downloadProgress.progress,
-                ),
+          CachedNetworkImage(
+            imageUrl: pokemonCard.images.large,
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Center(
+              child: CircularProgressIndicator(
+                value: downloadProgress.progress,
               ),
-              fit: BoxFit.fitHeight,
             ),
+            fit: BoxFit.fitHeight,
           ),
           const SizedBox(height: 8),
           //name
