@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:pokemon/pokemon_card/models/pokemon_card/card_market_model.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_card/other_attributes.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_card/set_details_models.dart';
@@ -168,7 +166,6 @@ class PokemonCard {
         cardmarket: CardMarket.fromMap(map['cardmarket']),
       );
     } catch (e) {
-      log('Failed to create PokemonCard: $e');
       throw Exception('Failed to create PokemonCard: $e');
     }
   }

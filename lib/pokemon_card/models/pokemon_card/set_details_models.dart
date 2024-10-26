@@ -25,7 +25,7 @@ class SetDetails {
   final Legalities legalities;
 
   /// The PTCGO (Pokémon Trading Card Game Online) code for the set.
-  final String ptcgoCode;
+  final String? ptcgoCode;
 
   /// The release date of the set.
   final String releaseDate;

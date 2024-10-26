@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,9 +47,6 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
         emit(state.copyWith(pokemonCardsDataModel: _pokemonCardsDataModel));
       }
     } catch (e) {
-      log("*****EEEEEEEEEEEEEEEE*****");
-      log(e.toString());
-
       emit(
         state.copyWith(
           /// If the list of Pokemon cards is empty, then set the error state to true in the exception block.
