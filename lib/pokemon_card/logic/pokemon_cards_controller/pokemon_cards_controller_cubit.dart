@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_cards_model.dart';
 import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository.dart';
+import 'package:pokemon/util/pagination_model.dart';
 
 part 'pokemon_cards_controller_state.dart';
 
@@ -15,7 +16,7 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
             pokemonCardsDataModel: PokemonCardsDataModel.initial()));
 
   /// The initial state of the Pokemon cards data model.
-  final PokemonCardsDataModel _pokemonCardsDataModel =
+  PokemonCardsDataModel _pokemonCardsDataModel =
       PokemonCardsDataModel.initial();
 
   /// Fetches a list of Pokemon cards.
@@ -34,15 +35,14 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
           page: state.pokemonCardsDataModel.pagination.nextPage,
         );
 
-        // emit the new state with the updated Pokemon cards data model.
-        emit(
-          state.copyWith(
-            pokemonCardsDataModel: _pokemonCardsDataModel.paginationCopyWith(
-              pagination: updatedData.pagination,
-              cards: updatedData.cards,
-            ),
-          ),
+        // Update the Pokemon cards data model with the new data.
+        _pokemonCardsDataModel = _pokemonCardsDataModel.paginationCopyWith(
+          pagination: updatedData.pagination,
+          cards: updatedData.cards,
         );
+
+        // emit the new state with the updated Pokemon cards data model.
+        emit(state.copyWith(pokemonCardsDataModel: _pokemonCardsDataModel));
       }
     } catch (e) {
       emit(
@@ -55,5 +55,30 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
         ),
       );
     }
+  }
+
+  /// Searches for Pokemon cards based on the query.
+  /// The state cards list will be used to filter the cards based on the query.
+
+  void searchPokemonCards(String query) {
+    final filteredCards = _pokemonCardsDataModel.cards
+        .where((card) => card.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    emit(
+      state.copyWith(
+        pokemonCardsDataModel: filteredCards.isNotEmpty
+            ?
+            // If the filtered cards list is not empty, then search operation is in use.
+            PokemonCardsDataModel(
+                pagination: PaginationModel.disablePagination(),
+                cards: filteredCards,
+              )
+            :
+            // If the filtered cards list is empty, then search operation is not in use.
+            // in this case, the original Pokemon cards data model is used.
+            _pokemonCardsDataModel,
+      ),
+    );
   }
 }

@@ -1,5 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokemon/common/widgets/search_text_field.dart';
 import 'package:pokemon/pokemon_card/logic/pokemon_cards_controller/pokemon_cards_controller_cubit.dart';
 import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository_impl.dart';
 import 'package:pokemon/pokemon_card/widget/grid_shimmer_widget.dart';
@@ -15,31 +16,49 @@ class PokemonCardsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          // Create the PokemonCardsControllerCubit with the PokemonCardsRepositoryImpl.
-          PokemonCardsControllerCubit(PokemonCardsRepositoryImpl())
-            //Initial call to get the Pokemon cards.
-            ..getPokemonCards(),
-      child:
-          BlocBuilder<PokemonCardsControllerCubit, PokemonCardsControllerState>(
-        builder: (context, pokemonCardsControllerState) {
-          if (pokemonCardsControllerState.showErrorOnScreen &&
-              pokemonCardsControllerState.errorMesssage != null) {
-            return Center(
-              child: Text(pokemonCardsControllerState.errorMesssage!),
-            );
-          } else if (pokemonCardsControllerState.isLoading) {
-            return const GridShimmerWidget();
-          } else {
-            /// Get the Pokemon cards data model from the state.
-            final pokemonCardsDataModel =
-                pokemonCardsControllerState.pokemonCardsDataModel;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pokemon Cards'),
+      ),
+      body: Column(
+        children: [
+          SearchTextField(onQuery: (query) {
+            // Call the getPokemonCards method with the query.
+            context
+                .read<PokemonCardsControllerCubit>()
+                .searchPokemonCards(query);
+          }),
+          Expanded(
+            child: BlocProvider(
+              create: (context) =>
+                  // Create the PokemonCardsControllerCubit with the PokemonCardsRepositoryImpl.
+                  PokemonCardsControllerCubit(PokemonCardsRepositoryImpl())
+                    //Initial call to get the Pokemon cards.
+                    ..getPokemonCards(),
+              child: BlocBuilder<PokemonCardsControllerCubit,
+                  PokemonCardsControllerState>(
+                builder: (context, pokemonCardsControllerState) {
+                  if (pokemonCardsControllerState.showErrorOnScreen &&
+                      pokemonCardsControllerState.errorMesssage != null) {
+                    return Center(
+                      child: Text(pokemonCardsControllerState.errorMesssage!),
+                    );
+                  } else if (pokemonCardsControllerState.isLoading) {
+                    return const GridShimmerWidget();
+                  } else {
+                    /// Get the Pokemon cards data model from the state.
+                    final pokemonCardsDataModel =
+                        pokemonCardsControllerState.pokemonCardsDataModel;
 
-            /// Build the PokemonCardsGridView widget.
-            return PokemonCardsGridView(pokemonCardsDataModel).build(context);
-          }
-        },
+                    /// Build the PokemonCardsGridView widget.
+                    return PokemonCardsGridView(pokemonCardsDataModel)
+                        .build(context);
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

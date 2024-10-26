@@ -14,7 +14,7 @@ class BaseRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pokemon Cards'),
+        title: const Text('Pokemon Cards App'),
       ),
       body: Column(
         children: [

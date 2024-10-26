@@ -42,4 +42,16 @@ class PaginationModel {
       totalPages: 0,
     );
   }
+
+  /// Allow pagination
+  bool get allowPagination => currentPage != -1 && totalPages != -1;
+
+  /// This method is used to disable pagination.
+  /// Mostly used during search operations.
+  factory PaginationModel.disablePagination() {
+    return PaginationModel(
+      currentPage: -1,
+      totalPages: -1,
+    );
+  }
 }
