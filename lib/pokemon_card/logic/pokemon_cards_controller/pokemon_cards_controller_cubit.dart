@@ -15,7 +15,8 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
             pokemonCardsDataModel: PokemonCardsDataModel.initial()));
 
   /// The initial state of the Pokemon cards data model.
-  PokemonCardsDataModel pokemonCardsDataModel = PokemonCardsDataModel.initial();
+  final PokemonCardsDataModel _pokemonCardsDataModel =
+      PokemonCardsDataModel.initial();
 
   /// Fetches a list of Pokemon cards.
   /// If this method is called repeatedly, it will fetch the next page of Pokemon cards.
@@ -36,7 +37,7 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
         // emit the new state with the updated Pokemon cards data model.
         emit(
           state.copyWith(
-            pokemonCardsDataModel: pokemonCardsDataModel.paginationCopyWith(
+            pokemonCardsDataModel: _pokemonCardsDataModel.paginationCopyWith(
               pagination: updatedData.pagination,
               cards: updatedData.cards,
             ),
@@ -44,7 +45,15 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
         );
       }
     } catch (e) {
-      emit(state.copyWith(hasError: true));
+      emit(
+        state.copyWith(
+          /// If the list of Pokemon cards is empty, then set the error state to true in the exception block.
+          /// Because the error state is set to true, the error message will be displayed on the screen.
+          showErrorOnScreen:
+              state.pokemonCardsDataModel.cards.isEmpty ? true : false,
+          errorMesssage: "An error occurred while fetching Pokemon cards.",
+        ),
+      );
     }
   }
 }

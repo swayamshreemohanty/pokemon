@@ -114,46 +114,6 @@ class Resistance {
   }
 }
 
-/// Represents images associated with a Pokémon card.
-class ImagesModel {
-  /// The symbol image URL.
-  final String? symbol;
-
-  /// The logo image URL.
-  final String? logo;
-
-  /// The small image URL.
-  final String? small;
-
-  /// The large image URL.
-  final String? large;
-
-  /// Creates an instance of [ImagesModel].
-  ///
-  /// [symbol] is the symbol image URL.
-  /// [logo] is the logo image URL.
-  /// [small] is the small image URL.
-  /// [large] is the large image URL.
-  ImagesModel({
-    required this.symbol,
-    required this.logo,
-    required this.small,
-    required this.large,
-  });
-
-  /// Creates an instance of [ImagesModel] from a map.
-  ///
-  /// [map] is a map containing the images data.
-  factory ImagesModel.fromMap(Map<String, dynamic> map) {
-    return ImagesModel(
-      symbol: map['symbol'],
-      logo: map['logo'],
-      small: map['small'],
-      large: map['large'],
-    );
-  }
-}
-
 /// Represents the legalities of a Pokémon card.
 class Legalities {
   /// The unlimited legality status.

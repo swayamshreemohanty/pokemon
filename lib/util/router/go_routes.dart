@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/base_route.dart';
+import 'package:pokemon/pokemon_card/screens/pokemon_cards_list_screen.dart';
+import 'package:pokemon/util/router/animated_page_route.dart';
 
 /// The [GoRouterManager] class is responsible for managing the routing
 class GoRouterManager {
@@ -19,7 +21,19 @@ class GoRouterManager {
         name: "/",
         path: "/",
         builder: (context, state) => const BaseRoute(),
-        routes: const [],
+        routes: [
+          ///PokemonCardsListScreen
+          GoRoute(
+            name: PokemonCardsListScreen.routeName,
+            path: PokemonCardsListScreen.routeName,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                animatedPageRoute(
+              pageKey: state.pageKey,
+              navigationDirection: NavigationDirection.right,
+              child: const PokemonCardsListScreen(),
+            ),
+          ),
+        ],
       ),
     ],
   );

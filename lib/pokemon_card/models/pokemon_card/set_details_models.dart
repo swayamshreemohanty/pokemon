@@ -34,7 +34,7 @@ class SetDetails {
   final String updatedAt;
 
   /// The images associated with the set.
-  final ImagesModel images;
+  final SetDetailsImage images;
 
   /// Creates a new instance of [SetDetails].
   ///
@@ -67,7 +67,35 @@ class SetDetails {
       ptcgoCode: map['ptcgoCode'],
       releaseDate: map['releaseDate'],
       updatedAt: map['updatedAt'],
-      images: ImagesModel.fromMap(map['images']),
+      images: SetDetailsImage.fromMap(map['images']),
+    );
+  }
+}
+
+/// Represents images associated with a Pokémon card set details.
+class SetDetailsImage {
+  /// The symbol image URL.
+  final String symbol;
+
+  /// The logo image URL.
+  final String logo;
+
+  /// Creates an instance of [SetDetailsImage].
+  ///
+  /// [symbol] is the symbol image URL.
+  /// [logo] is the logo image URL.
+  SetDetailsImage({
+    required this.symbol,
+    required this.logo,
+  });
+
+  /// Creates an instance of [SetDetailsImage] from a map.
+  ///
+  /// [map] is a map containing the images data.
+  factory SetDetailsImage.fromMap(Map<String, dynamic> map) {
+    return SetDetailsImage(
+      symbol: map['symbol'],
+      logo: map['logo'],
     );
   }
 }

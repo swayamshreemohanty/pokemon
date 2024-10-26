@@ -69,7 +69,7 @@ class PokemonCard {
   final Legalities legalities;
 
   /// The images associated with the Pokemon card.
-  final ImagesModel images;
+  final PokemonImage images;
 
   /// The TCGPlayer details of the Pokemon card.
   final TcgPlayer tcgplayer;
@@ -150,9 +150,37 @@ class PokemonCard {
       flavorText: map['flavorText'],
       nationalPokedexNumbers: List<int>.from(map['nationalPokedexNumbers']),
       legalities: Legalities.fromMap(map['legalities']),
-      images: ImagesModel.fromMap(map['images']),
+      images: PokemonImage.fromMap(map['images']),
       tcgplayer: TcgPlayer.fromMap(map['tcgplayer']),
       cardmarket: CardMarket.fromMap(map['cardmarket']),
+    );
+  }
+}
+
+/// Represents images associated with a Pokémon card.
+class PokemonImage {
+  /// The small image URL.
+  final String small;
+
+  /// The large image URL.
+  final String large;
+
+  /// Creates an instance of [PokemonImage].
+  ///
+  /// [small] is the small image URL.
+  /// [large] is the large image URL.
+  PokemonImage({
+    required this.small,
+    required this.large,
+  });
+
+  /// Creates an instance of [PokemonImage] from a map.
+  ///
+  /// [map] is a map containing the images data.
+  factory PokemonImage.fromMap(Map<String, dynamic> map) {
+    return PokemonImage(
+      small: map['small'],
+      large: map['large'],
     );
   }
 }

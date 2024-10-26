@@ -1,4 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pokemon/pokemon_card/screens/pokemon_cards_list_screen.dart';
 
 /// The base route of the application.
 class BaseRoute extends StatelessWidget {
@@ -10,6 +12,20 @@ class BaseRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pokemon Cards'),
+      ),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              GoRouter.of(context).pushNamed(PokemonCardsListScreen.routeName);
+            },
+            child: const Text('Pokemon Cards List'),
+          ),
+        ],
+      ),
+    );
   }
 }

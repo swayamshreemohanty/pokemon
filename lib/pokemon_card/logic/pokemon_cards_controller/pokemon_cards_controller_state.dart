@@ -5,8 +5,11 @@ class PokemonCardsControllerState extends Equatable {
   /// Indicates if the controller is loading data.
   final bool isLoading;
 
-  /// Indicates if the controller has an error.
-  final bool hasError;
+  /// Indicates if an error should be shown on the screen.
+  final bool showErrorOnScreen;
+
+  /// The error message.
+  final String? errorMesssage;
 
   /// The data model for the Pokemon cards.
   final PokemonCardsDataModel pokemonCardsDataModel;
@@ -14,22 +17,26 @@ class PokemonCardsControllerState extends Equatable {
   /// Creates a new instance of [PokemonCardsControllerState].
   const PokemonCardsControllerState({
     this.isLoading = false,
-    this.hasError = false,
+    this.showErrorOnScreen = false,
+    this.errorMesssage,
     required this.pokemonCardsDataModel,
   });
 
   @override
-  List<Object?> get props => [isLoading, hasError, pokemonCardsDataModel];
+  List<Object?> get props =>
+      [isLoading, showErrorOnScreen, pokemonCardsDataModel, errorMesssage];
 
   /// CopyWith method for the Pokemon cards controller state.
   PokemonCardsControllerState copyWith({
     bool? isLoading,
-    bool? hasError,
+    bool? showErrorOnScreen,
+    String? errorMesssage,
     PokemonCardsDataModel? pokemonCardsDataModel,
   }) {
     return PokemonCardsControllerState(
       isLoading: isLoading ?? false,
-      hasError: hasError ?? false,
+      showErrorOnScreen: showErrorOnScreen ?? false,
+      errorMesssage: errorMesssage,
       pokemonCardsDataModel:
           pokemonCardsDataModel ?? this.pokemonCardsDataModel,
     );
