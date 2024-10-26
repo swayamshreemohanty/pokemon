@@ -22,8 +22,13 @@ class PokemonCardsDataModel {
   });
 
   /// Indicates if the collection of Pokemon cards has more data.
-  bool get hasMoreData => ((cards.isEmpty && pagination.totalCount == 0) ||
-      (cards.length < pagination.totalCount));
+  bool get hasMoreData =>
+      // Check if the list of Pokemon cards is empty and the total count is 0.
+      // this is the initial state of the model.
+      ((cards.isEmpty && pagination.totalCount == 0) ||
+
+          // Check if the list of Pokemon cards is not empty and the total count is greater than the length of the list.
+          (cards.length < pagination.totalCount));
 
   /// Creates a new instance of [PokemonCardsModel] from a map.
   ///
