@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon/common/widgets/pagination_loader_widget.dart';
 import 'package:pokemon/pokemon_card/logic/pokemon_cards_controller/pokemon_cards_controller_cubit.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_cards_model.dart';
+import 'package:pokemon/pokemon_card/widget/pokemon_card_details_widget.dart';
 import 'package:pokemon/pokemon_card/widget/pokemon_list_grid_widget.dart';
 
 /// The widget that displays the list of Pokemon cards.
@@ -49,7 +50,18 @@ class PokemonCardsGridView implements PokemonCardsWidget {
         itemBuilder: (context, index) {
           if (index < logs.length) {
             final pokemonCard = logs[index];
-            return PokemonListGridWidget(pokemonCard: pokemonCard);
+            return GestureDetector(
+              onTap: () {
+                //Navigate to Pokemon card details screen.
+                showBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return PokemonCardDetailsWidget(pokemonCard: pokemonCard);
+                  },
+                );
+              },
+              child: PokemonListGridWidget(pokemonCard: pokemonCard),
+            );
           } else {
             return PaginationLoaderWidget(
               key: const Key('PokemonCardsGridViewLoader'),

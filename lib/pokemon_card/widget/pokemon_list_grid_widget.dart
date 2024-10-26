@@ -20,12 +20,15 @@ class PokemonListGridWidget extends StatelessWidget {
       child: Stack(
         children: [
           Positioned.fill(
-            child: CachedNetworkImage(
-              imageUrl: pokemonCard.images.small,
-              progressIndicatorBuilder: (context, url, progress) => Center(
-                  child: CircularProgressIndicator(value: progress.progress)),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              fit: BoxFit.fill,
+            child: Hero(
+              tag: pokemonCard.id,
+              child: CachedNetworkImage(
+                imageUrl: pokemonCard.images.small,
+                progressIndicatorBuilder: (context, url, progress) => Center(
+                    child: CircularProgressIndicator(value: progress.progress)),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Positioned(
