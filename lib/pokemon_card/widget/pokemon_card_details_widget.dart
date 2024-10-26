@@ -44,32 +44,83 @@ class PokemonCardDetailsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
+
+          //Ability
+          if (pokemonCard.abilities.isNotEmpty)
+            PokemonDetailsTextWidget(
+              leftText: 'Ability: ',
+              rightText: pokemonCard.abilities.map((e) => e.name).join(', '),
+            ),
+
           //Set
-          Text(
-            'Set: ${pokemonCard.setDetails.name}',
-            style: const TextStyle(
-              fontSize: 16,
-            ),
+          PokemonDetailsTextWidget(
+            leftText: 'Set: ',
+            rightText: pokemonCard.setDetails.name,
           ),
+
           //Type
-          Text(
-            'Type: ${pokemonCard.types.join(', ')}',
-            style: const TextStyle(
-              fontSize: 16,
+          if (pokemonCard.types.isNotEmpty)
+            PokemonDetailsTextWidget(
+              leftText: 'Type: ',
+              rightText: pokemonCard.types.join(', '),
             ),
-          ),
+
           //Weakness
+          if (pokemonCard.weaknesses.isNotEmpty)
+            PokemonDetailsTextWidget(
+              leftText: 'Weakness: ',
+              rightText: pokemonCard.weaknesses.map((e) => e.value).join(', '),
+            ),
+
+          //Artist
+          PokemonDetailsTextWidget(
+            leftText: 'Artist: ',
+            rightText: pokemonCard.artist,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+///Pokemon details text widget.
+class PokemonDetailsTextWidget extends StatelessWidget {
+  /// The left text.
+  final String leftText;
+
+  /// The right text.
+  final String rightText;
+
+  /// Constructs the [PokemonDetailsTextWidget] widget.
+  const PokemonDetailsTextWidget({
+    super.key,
+    required this.leftText,
+    required this.rightText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Text(
-            'Weakness: ${pokemonCard.weaknesses.join(', ')}',
+            leftText,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: Colors.black87,
             ),
           ),
-          //Artist
-          Text(
-            'Artist: ${pokemonCard.artist}',
-            style: const TextStyle(
-              fontSize: 16,
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              rightText,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
             ),
           ),
         ],

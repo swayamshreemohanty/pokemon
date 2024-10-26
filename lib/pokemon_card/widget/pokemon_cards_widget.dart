@@ -53,10 +53,40 @@ class PokemonCardsGridView implements PokemonCardsWidget {
             return GestureDetector(
               onTap: () {
                 //Navigate to Pokemon card details screen.
-                showBottomSheet(
+                showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.yellow.shade100,
                   builder: (context) {
-                    return PokemonCardDetailsWidget(pokemonCard: pokemonCard);
+                    return ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.sizeOf(context).height * 0.9,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          //Handle
+                          Container(
+                            width: 40,
+                            height: 4,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                          ),
+
+                          //Pokemon card details widget
+                          Expanded(
+                            child: PokemonCardDetailsWidget(
+                              pokemonCard: pokemonCard,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 );
               },
