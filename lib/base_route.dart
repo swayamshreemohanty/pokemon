@@ -13,26 +13,36 @@ class BaseRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pokemon Cards App'),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // CachedNetworkImage(
-          //   imageUrl:
-          //       "https://tenor.com/view/hi-hello-hiya-howdy-good-morning-gif-7599730966006624111",
-          //   placeholder: (context, url) => const CircularProgressIndicator(),
-          //   errorWidget: (context, url, error) => const Icon(Icons.error),
-          // ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
+              "assets/images/pokemon_hello.gif",
+              height: 350,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 20),
           Center(
-            child: ElevatedButton(
-              onPressed: () {
-                GoRouter.of(context)
-                    .pushNamed(PokemonCardsListScreen.routeName);
-              },
-              child: const Text('Pokemon Cards List'),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    GoRouter.of(context)
+                        .pushNamed(PokemonCardsListScreen.routeName);
+                  },
+                  child: const Text('Let\'s Go!'),
+                ),
+              ),
             ),
           ),
         ],
