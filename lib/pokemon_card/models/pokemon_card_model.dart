@@ -1,7 +1,6 @@
 import 'package:pokemon/pokemon_card/models/card_market_model.dart';
 import 'package:pokemon/pokemon_card/models/set_details_models.dart';
 import 'package:pokemon/pokemon_card/models/tcg_player_model.dart';
-
 import 'other_attributes.dart';
 
 class PokemonCard {
