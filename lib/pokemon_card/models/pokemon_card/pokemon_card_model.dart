@@ -1,34 +1,85 @@
-import 'package:pokemon/pokemon_card/models/card_market_model.dart';
-import 'package:pokemon/pokemon_card/models/set_details_models.dart';
-import 'package:pokemon/pokemon_card/models/tcg_player_model.dart';
-import 'other_attributes.dart';
+import 'package:pokemon/pokemon_card/models/pokemon_card/card_market_model.dart';
+import 'package:pokemon/pokemon_card/models/pokemon_card/other_attributes.dart';
+import 'package:pokemon/pokemon_card/models/pokemon_card/set_details_models.dart';
+import 'package:pokemon/pokemon_card/models/pokemon_card/tcg_player_model.dart';
 
+/// Represents a Pokemon card with various attributes and details.
 class PokemonCard {
+  /// The unique identifier of the Pokemon card.
   final String id;
+
+  /// The name of the Pokemon card.
   final String name;
+
+  /// The supertype of the Pokemon card.
   final String supertype;
+
+  /// The subtypes of the Pokemon card.
   final List<String> subtypes;
+
+  /// The level of the Pokemon card, if available.
   final String? level;
+
+  /// The hit points (HP) of the Pokemon card.
   final String hp;
+
+  /// The types of the Pokemon card.
   final List<String> types;
+
+  /// The name of the Pokemon from which this card evolves, if available.
   final String? evolvesFrom;
+
+  /// The abilities of the Pokemon card.
   final List<Ability> abilities;
+
+  /// The attacks of the Pokemon card.
   final List<Attack> attacks;
+
+  /// The weaknesses of the Pokemon card.
   final List<Weakness> weaknesses;
+
+  /// The resistances of the Pokemon card.
   final List<Resistance> resistances;
+
+  /// The retreat cost of the Pokemon card.
   final List<String> retreatCost;
+
+  /// The converted retreat cost of the Pokemon card.
   final int convertedRetreatCost;
+
+  /// The set details of the Pokemon card.
   final SetDetails setDetails;
+
+  /// The number of the Pokemon card in the set.
   final String number;
+
+  /// The artist who illustrated the Pokemon card.
   final String artist;
+
+  /// The rarity of the Pokemon card.
   final String rarity;
+
+  /// The flavor text of the Pokemon card, if available.
   final String? flavorText;
+
+  /// The national Pokedex numbers associated with the Pokemon card.
   final List<int> nationalPokedexNumbers;
+
+  /// The legalities of the Pokemon card in various formats.
   final Legalities legalities;
+
+  /// The images associated with the Pokemon card.
   final ImagesModel images;
+
+  /// The TCGPlayer details of the Pokemon card.
   final TcgPlayer tcgplayer;
+
+  /// The CardMarket details of the Pokemon card.
   final CardMarket cardmarket;
 
+  /// Creates a new instance of [PokemonCard].
+  ///
+  /// All parameters are required unless otherwise specified.
   PokemonCard({
     required this.id,
     required this.name,
@@ -56,7 +107,10 @@ class PokemonCard {
     required this.cardmarket,
   });
 
-  // from map
+  /// Creates a new instance of [PokemonCard] from a map.
+  ///
+  /// The [map] parameter must contain all the necessary keys and values
+  /// to properly initialize a [PokemonCard] instance.
   factory PokemonCard.fromMap(Map<String, dynamic> map) {
     return PokemonCard(
       id: map['id'],
