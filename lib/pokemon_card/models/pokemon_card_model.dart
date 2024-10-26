@@ -69,16 +69,24 @@ class PokemonCard {
       types: List<String>.from(map['types']),
       evolvesFrom: map['evolvesFrom'],
       abilities: List<Ability>.from(
-        map['abilities'].map((item) => Ability.fromMap(item)),
+        map['abilities'].map(
+          (item) => Ability.fromMap(item),
+        ),
       ),
       attacks: List<Attack>.from(
-        map['attacks'].map((item) => Attack.fromMap(item)),
+        map['attacks'].map(
+          (item) => Attack.fromMap(item),
+        ),
       ),
       weaknesses: List<Weakness>.from(
-        map['weaknesses'].map((item) => Weakness.fromMap(item)),
+        map['weaknesses'].map(
+          (item) => Weakness.fromMap(item),
+        ),
       ),
       resistances: List<Resistance>.from(
-        map['resistances'].map((item) => Resistance.fromMap(item)),
+        map['resistances'].map(
+          (item) => Resistance.fromMap(item),
+        ),
       ),
       retreatCost: List<String>.from(map['retreatCost']),
       convertedRetreatCost: map['convertedRetreatCost'],
