@@ -1,4 +1,4 @@
-package com.example.pokemon
+package com.swayam.pokemon
 
 import io.flutter.embedding.android.FlutterActivity
 

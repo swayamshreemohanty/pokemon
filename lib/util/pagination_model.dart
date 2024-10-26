@@ -29,8 +29,17 @@ class PaginationModel {
   bool get isLastPage => currentPage == totalPages;
 
   /// This getter is used to check if there is a next page.
-  bool get hasNextPage => currentPage < totalPages;
+  bool get hasNextPage =>
+      ((currentPage == 0 && totalPages == 0) || (currentPage < totalPages));
 
   /// This getter is used to get the next page number.
   int get nextPage => currentPage + 1;
+
+  /// Initial instance of PaginationModel.
+  factory PaginationModel.initial() {
+    return PaginationModel(
+      currentPage: 0,
+      totalPages: 0,
+    );
+  }
 }
