@@ -1,7 +1,7 @@
 /// This class is used to handle the pagination.
 class PaginationModel {
   /// The current page number.
-  final int currentPage;
+  int currentPage;
 
   /// The total number of pages.
   final int totalPages;
@@ -33,7 +33,9 @@ class PaginationModel {
       ((currentPage == 0 && totalPages == 0) || (currentPage < totalPages));
 
   /// This getter is used to get the next page number.
-  int get nextPage => currentPage + 1;
+  int get nextPage {
+    return currentPage += 1;
+  }
 
   /// Initial instance of PaginationModel.
   factory PaginationModel.initial() {
