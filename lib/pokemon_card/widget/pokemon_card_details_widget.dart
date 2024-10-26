@@ -52,6 +52,13 @@ class PokemonCardDetailsWidget extends StatelessWidget {
               rightText: pokemonCard.abilities.map((e) => e.name).join(', '),
             ),
 
+          // Attacks
+          if (pokemonCard.attacks.isNotEmpty)
+            PokemonDetailsTextWidget(
+              leftText: 'Attacks: ',
+              rightText: pokemonCard.attacks.map((e) => e.name).join(', '),
+            ),
+
           //Set
           PokemonDetailsTextWidget(
             leftText: 'Set: ',
