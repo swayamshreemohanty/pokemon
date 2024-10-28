@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokemon/common/widgets/pagination_loader_widget.dart';
+import 'package:pokemon/common/widgets/pagination_navigation_widget.dart';
 import 'package:pokemon/pokemon_card/logic/pokemon_cards_controller/pokemon_cards_controller_cubit.dart';
 import 'package:pokemon/pokemon_card/models/pokemon_cards_model.dart';
 import 'package:pokemon/pokemon_card/widget/pokemon_card_details_widget.dart';
@@ -93,12 +93,14 @@ class PokemonCardsGridView implements PokemonCardsWidget {
               child: PokemonListGridWidget(pokemonCard: pokemonCard),
             );
           } else {
-            return PaginationLoaderWidget(
-              key: const Key('PokemonCardsGridViewLoader'),
+            return PaginationNavigationWidget(
               disableLoadMore: disableLoadMore,
-              hasMoreData: pokemonCardModel.hasMoreData,
-              loadMoreData: () {
-                //Load more data
+              pagination: pokemonCardModel.pagination,
+              // loadMoreData: () {
+              //   //Load more data
+              //   context.read<PokemonCardsControllerCubit>().getPokemonCards();
+              // },
+              onPageSelect: (page) {
                 context.read<PokemonCardsControllerCubit>().getPokemonCards();
               },
             );

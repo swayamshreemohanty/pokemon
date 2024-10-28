@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,31 +23,28 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
 
   /// Fetches a list of Pokemon cards.
   /// If this method is called repeatedly, it will fetch the next page of Pokemon cards.
-  Future<void> getPokemonCards() async {
+  Future<void> getPokemonCards({int? page}) async {
     try {
       // Check if there is a next page.
-      if (_pokemonCardsDataModel.hasMoreData) {
+      if (_pokemonCardsDataModel.pagination.hasMoreData) {
         // If the list of Pokemon cards is empty, then set the loading state to true.
         if (state.pokemonCardsDataModel.cards.isEmpty) {
           emit(state.copyWith(isLoading: true));
         }
 
         // Fetch the Pokemon cards data.
-        final updatedData = await compute(
+        _pokemonCardsDataModel = await compute(
+          // Fetch the Pokemon cards data in a separate isolate.
           _pokemonCardsRepository.getPokemonCards,
-          state.pokemonCardsDataModel.pagination.nextPage,
-        );
-
-        // Update the Pokemon cards data model with the new data.
-        _pokemonCardsDataModel = _pokemonCardsDataModel.paginationCopyWith(
-          pagination: updatedData.pagination,
-          cards: updatedData.cards,
+          // If the page is null, then fetch the data for 1st page.
+          page ?? 1,
         );
 
         // emit the new state with the updated Pokemon cards data model.
         emit(state.copyWith(pokemonCardsDataModel: _pokemonCardsDataModel));
       }
     } catch (e) {
+      log("An error occurred while fetching Pokemon cards: $e");
       emit(
         state.copyWith(
           /// If the list of Pokemon cards is empty, then set the error state to true in the exception block.

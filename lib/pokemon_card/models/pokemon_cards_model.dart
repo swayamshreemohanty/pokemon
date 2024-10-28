@@ -21,15 +21,6 @@ class PokemonCardsDataModel {
     required this.cards,
   });
 
-  /// Indicates if the collection of Pokemon cards has more data.
-  bool get hasMoreData =>
-      // Check if the list of Pokemon cards is empty and the total count is 0.
-      // this is the initial state of the model.
-      ((cards.isEmpty && pagination.totalCount == 0) ||
-
-          // Check if the list of Pokemon cards is not empty and the total count is greater than the length of the list.
-          (cards.length < pagination.totalCount));
-
   /// Creates a new instance of [PokemonCardsModel] from a map.
   ///
   /// The [map] parameter is a [Map] containing the data to create the model.
@@ -52,17 +43,17 @@ class PokemonCardsDataModel {
     );
   }
 
-  /// Copywith method for [PokemonCardsDataModel].
-  PokemonCardsDataModel paginationCopyWith({
-    required PaginationModel pagination,
-    required List<PokemonCard> cards,
+  /// Creates a copy of the current instance with updated values.
+  ///
+  /// The [pagination] and [cards] parameters are optional and will default to
+  /// the current instance's values if not provided.
+  PokemonCardsDataModel copyWith({
+    PaginationModel? pagination,
+    List<PokemonCard>? cards,
   }) {
-    // add the new cards to the existing list of cards.
-    this.cards.addAll(cards);
-
     return PokemonCardsDataModel(
-      pagination: pagination,
-      cards: this.cards,
+      pagination: pagination ?? this.pagination,
+      cards: cards ?? this.cards,
     );
   }
 }
