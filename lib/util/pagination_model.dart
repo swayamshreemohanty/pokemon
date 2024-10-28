@@ -6,14 +6,10 @@ class PaginationModel {
   /// The total number of items.
   final int totalCount;
 
-  /// The current page items count.
-  final int count;
-
   /// Constructor for the PaginationModel class.
   PaginationModel({
     required this.currentPage,
     required this.totalCount,
-    required this.count,
   });
 
   /// This method is used to create a PaginationModel object from a map.
@@ -21,7 +17,6 @@ class PaginationModel {
     return PaginationModel(
       currentPage: map['page'],
       totalCount: map['totalCount'],
-      count: map['count'],
     );
   }
 
@@ -35,7 +30,6 @@ class PaginationModel {
     return PaginationModel(
       currentPage: 0,
       totalCount: 0,
-      count: 0,
     );
   }
 }
