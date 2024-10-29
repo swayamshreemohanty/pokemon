@@ -21,6 +21,9 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
   PokemonCardsDataModel _pokemonCardsDataModel =
       PokemonCardsDataModel.initial();
 
+  /// The search query to filter the Pokemon cards.
+  String _searchQuery = "";
+
   /// Fetches a list of Pokemon cards.
   /// If this method is called repeatedly, it will fetch the next page of Pokemon cards.
   Future<void> getPokemonCards({int? page}) async {
@@ -37,8 +40,13 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
           page ?? 1,
         );
 
-        // emit the new state with the updated Pokemon cards data model.
-        emit(state.copyWith(pokemonCardsDataModel: _pokemonCardsDataModel));
+        if (_searchQuery.isNotEmpty) {
+          // Filter the Pokemon cards based on the search query.
+          searchPokemonCards(_searchQuery);
+        } else {
+          // emit the new state with the updated Pokemon cards data model.
+          emit(state.copyWith(pokemonCardsDataModel: _pokemonCardsDataModel));
+        }
       }
     } catch (e) {
       log("An error occurred while fetching Pokemon cards: $e");
@@ -58,12 +66,12 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
   /// The state cards list will be used to filter the cards based on the query.
 
   void searchPokemonCards(String query) {
-    final trimmedQuery = query.trim().toLowerCase();
-    final isQueryNotEmpty = trimmedQuery.isNotEmpty;
+    _searchQuery = query.trim().toLowerCase();
+    final isQueryNotEmpty = _searchQuery.isNotEmpty;
 
     final filteredCards = isQueryNotEmpty
         ? _pokemonCardsDataModel.cards
-            .where((card) => card.name.toLowerCase().contains(trimmedQuery))
+            .where((card) => card.name.toLowerCase().contains(_searchQuery))
             .toList()
         : _pokemonCardsDataModel.cards;
 

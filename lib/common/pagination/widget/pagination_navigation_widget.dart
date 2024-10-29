@@ -101,7 +101,7 @@ class PaginationNumberWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 4.0),
         padding: const EdgeInsets.all(4.0),
         decoration: BoxDecoration(
-          color: selectedPage == page ? Colors.blue : Colors.grey,
+          color: selectedPage == page ? Colors.deepPurple : Colors.grey,
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: FittedBox(
