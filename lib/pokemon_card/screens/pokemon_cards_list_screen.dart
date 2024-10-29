@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokemon/common/pagination/logic/pagination_controller/pagination_controller_cubit.dart';
+import 'package:pokemon/common/pagination/widget/pagination_navigation_widget.dart';
 import 'package:pokemon/common/widgets/search_text_field.dart';
 import 'package:pokemon/pokemon_card/logic/pokemon_cards_controller/pokemon_cards_controller_cubit.dart';
 import 'package:pokemon/pokemon_card/repository/pokemon_cards_repository_impl.dart';
@@ -16,12 +18,17 @@ class PokemonCardsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          // Create the PokemonCardsControllerCubit with the PokemonCardsRepositoryImpl.
-          PokemonCardsControllerCubit(PokemonCardsRepositoryImpl())
-            //Initial call to get the Pokemon cards.
-            ..getPokemonCards(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PokemonCardsControllerCubit(
+            PokemonCardsRepositoryImpl(),
+          )..getPokemonCards(),
+        ),
+        BlocProvider(
+          create: (context) => PaginationControllerCubit()..setSelectedPage(1),
+        ),
+      ],
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -44,8 +51,15 @@ class PokemonCardsListScreen extends StatelessWidget {
                     }),
               ),
               Expanded(
-                child: BlocBuilder<PokemonCardsControllerCubit,
+                child: BlocConsumer<PokemonCardsControllerCubit,
                     PokemonCardsControllerState>(
+                  listener: (context, pokemonCardsControllerState) {
+                    //Update the pagination controller state.
+                    context.read<PaginationControllerCubit>().setTotalPages(
+                          pokemonCardsControllerState
+                              .pokemonCardsDataModel.pagination.totalPages,
+                        );
+                  },
                   builder: (context, pokemonCardsControllerState) {
                     if (pokemonCardsControllerState.showErrorOnScreen &&
                         pokemonCardsControllerState.errorMesssage != null) {
@@ -68,6 +82,10 @@ class PokemonCardsListScreen extends StatelessWidget {
                     }
                   },
                 ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: PaginationNavigationWidget(),
               ),
             ],
           ),

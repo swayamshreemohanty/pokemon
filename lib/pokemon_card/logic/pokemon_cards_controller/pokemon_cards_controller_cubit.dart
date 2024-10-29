@@ -27,10 +27,7 @@ class PokemonCardsControllerCubit extends Cubit<PokemonCardsControllerState> {
     try {
       // Check if there is a next page.
       if (_pokemonCardsDataModel.pagination.hasMoreData) {
-        // If the list of Pokemon cards is empty, then set the loading state to true.
-        if (state.pokemonCardsDataModel.cards.isEmpty) {
-          emit(state.copyWith(isLoading: true));
-        }
+        emit(state.copyWith(isLoading: true));
 
         // Fetch the Pokemon cards data.
         _pokemonCardsDataModel = await compute(

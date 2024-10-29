@@ -1,5 +1,5 @@
 import 'package:pokemon/pokemon_card/models/pokemon_card/pokemon_card_model.dart';
-import 'package:pokemon/util/pagination_model.dart';
+import 'package:pokemon/common/pagination/model/pagination_model.dart';
 
 /// Represents a model for a collection of Pokemon cards with pagination.
 ///

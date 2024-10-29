@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon/util/router/go_routes.dart';
 
-void main() {
+Future<void> main() async {
+  // Ensure that the Flutter binding is initialized.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //Set the orientation to portrait mode only.
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(const MyApp());
 }
 
