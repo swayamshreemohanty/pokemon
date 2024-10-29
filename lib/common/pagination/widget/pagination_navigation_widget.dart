@@ -19,7 +19,6 @@ class _PaginationNavigationWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<PaginationControllerCubit, PaginationControllerState>(
       builder: (context, state) {
-        print(state);
         return SizedBox(
           height: 25,
           width: 450,
