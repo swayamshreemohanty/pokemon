@@ -1,4 +1,4 @@
-import 'package:pokemon/common/pagination/model/strategy/model/pagination_display_model.dart';
+import 'package:pokemon/common/pagination/strategy/model/pagination_display_model.dart';
 
 /// Strategy for determining the visibility of pagination numbers based on the selected page and total pages.
 abstract class PaginationDisplayStrategy {

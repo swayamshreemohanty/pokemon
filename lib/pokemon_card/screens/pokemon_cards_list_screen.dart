@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon/common/pagination/logic/pagination_controller/pagination_controller_cubit.dart';
-import 'package:pokemon/common/pagination/model/strategy/ellipsis_pagination_display_strategy.dart';
+import 'package:pokemon/common/pagination/strategy/ellipsis_pagination_display_strategy.dart';
 import 'package:pokemon/common/pagination/widget/pagination_navigation_widget.dart';
 import 'package:pokemon/common/widgets/search_text_field.dart';
 import 'package:pokemon/pokemon_card/logic/pokemon_cards_controller/pokemon_cards_controller_cubit.dart';

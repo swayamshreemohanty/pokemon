@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokemon/common/pagination/model/strategy/model/pagination_display_model.dart';
-import 'package:pokemon/common/pagination/model/strategy/pagination_display_strategy.dart';
+import 'package:pokemon/common/pagination/strategy/model/pagination_display_model.dart';
+import 'package:pokemon/common/pagination/strategy/pagination_display_strategy.dart';
 
 part 'pagination_controller_state.dart';
 

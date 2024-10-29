@@ -1,5 +1,5 @@
-import 'package:pokemon/common/pagination/model/strategy/model/pagination_display_model.dart';
-import 'package:pokemon/common/pagination/model/strategy/pagination_display_strategy.dart';
+import 'package:pokemon/common/pagination/strategy/model/pagination_display_model.dart';
+import 'package:pokemon/common/pagination/strategy/pagination_display_strategy.dart';
 
 /// 1. If total pages is <= 15, then we will show all 1st phase pages.
 /// ex: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
