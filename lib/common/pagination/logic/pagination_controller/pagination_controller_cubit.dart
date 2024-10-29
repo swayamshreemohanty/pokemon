@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,26 +58,21 @@ class PaginationControllerCubit extends Cubit<PaginationControllerState> {
       bool hidePhase1Numbers = false;
       bool hidePhase2Numbers = false;
 
-      if (selectedPage <= 7) {
-        log("Condition 1");
+      if (selectedPage < 7) {
         // Case 2 & 3: Show pages 1 to 7 and last 3 pages if selectedPage <= 7
         firstPhasePages = List.generate(7, (index) => index + 1);
         hidePhase1Numbers = true;
         thirdPhasePages = List.generate(3, (index) => totalPages - 2 + index);
         hidePhase2Numbers = false;
-      } else if (selectedPage > 7 && selectedPage < totalPages - 3) {
-        log("Condition 2");
-
+      } else if (selectedPage >= 7 && selectedPage < totalPages - 3) {
         // Case 4: Show page 1, pages around selectedPage, and last 3 pages
         firstPhasePages = [1];
         secondPhasePages =
-            List.generate(3, (index) => selectedPage - 1 + index);
+            List.generate(5, (index) => selectedPage - 1 + index);
         thirdPhasePages = [totalPages - 2, totalPages - 1, totalPages];
         hidePhase1Numbers = true;
         hidePhase2Numbers = true;
       } else {
-        log("Condition 3");
-
         // Case 5: Show page 1 and last 6 pages if selectedPage >= totalPages - 3
         firstPhasePages = [1];
         secondPhasePages = List.generate(6, (index) => totalPages - 5 + index);
