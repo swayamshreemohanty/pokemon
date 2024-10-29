@@ -39,6 +39,7 @@ class PokemonCardDetailsWidget extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 8),
 

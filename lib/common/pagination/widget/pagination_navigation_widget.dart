@@ -19,6 +19,7 @@ class _PaginationNavigationWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<PaginationControllerCubit, PaginationControllerState>(
       builder: (context, state) {
+        final paginationDisplayData = state.displayData;
         return SizedBox(
           height: 25,
           width: 450,
@@ -26,42 +27,42 @@ class _PaginationNavigationWidgetState
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Show the first phase pages
-              if (state.firstPhasePages.isNotEmpty)
+              if (paginationDisplayData.firstPhasePages.isNotEmpty)
                 ...List.generate(
-                  state.firstPhasePages.length,
+                  paginationDisplayData.firstPhasePages.length,
                   (index) => Flexible(
                     child: PaginationNumberWidget(
-                      page: state.firstPhasePages[index],
+                      page: paginationDisplayData.firstPhasePages[index],
                       selectedPage: state.selectedPage,
                     ),
                   ),
                 ),
 
               // Show the ellipsis if the first phase pages are hidden
-              if (state.hidePhase1Numbers) const Text(' ...'),
+              if (paginationDisplayData.hidePhase1Numbers) const Text(' ...'),
 
               // Show the second phase pages
-              if (state.secondPhasePages.isNotEmpty)
+              if (paginationDisplayData.secondPhasePages.isNotEmpty)
                 ...List.generate(
-                  state.secondPhasePages.length,
+                  paginationDisplayData.secondPhasePages.length,
                   (index) => Flexible(
                     child: PaginationNumberWidget(
-                      page: state.secondPhasePages[index],
+                      page: paginationDisplayData.secondPhasePages[index],
                       selectedPage: state.selectedPage,
                     ),
                   ),
                 ),
 
               // Show the ellipsis if the second phase pages are hidden
-              if (state.hidePhase2Numbers) const Text(' ...'),
+              if (paginationDisplayData.hidePhase2Numbers) const Text(' ...'),
 
               // Show the third phase pages
-              if (state.thirdPhasePages.isNotEmpty)
+              if (paginationDisplayData.thirdPhasePages.isNotEmpty)
                 ...List.generate(
-                  state.thirdPhasePages.length,
+                  paginationDisplayData.thirdPhasePages.length,
                   (index) => Flexible(
                     child: PaginationNumberWidget(
-                      page: state.thirdPhasePages[index],
+                      page: paginationDisplayData.thirdPhasePages[index],
                       selectedPage: state.selectedPage,
                     ),
                   ),
